@@ -25,7 +25,7 @@
 
         <CollectionView x:Name="peopleList" Grid.Row="4">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Person">
+                <DataTemplate x:DataType="model:CVPerson">
                     <Grid ColumnDefinitions="*,2*">
                         <Label Text="{Binding Id}" TextColor="{StaticResource Primary}"/>
                         <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource Primary}"/>

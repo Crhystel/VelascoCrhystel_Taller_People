@@ -15,15 +15,15 @@ public partial class MainPage : ContentPage
     {
         statusMessage.Text = "";
 
-        App.PersonRepo.AddNewPerson(newPerson.Text);
-        statusMessage.Text = App.PersonRepo.StatusMessage;
+        App.CVPersonRepo.AddNewPerson(newPerson.Text);
+        statusMessage.Text = App.CVPersonRepo.StatusMessage;
     }
 
     public void OnGetButtonClicked(object sender, EventArgs args)
     {
         statusMessage.Text = "";
 
-        List<CVPerson> people = App.PersonRepo.GetAllPeople();
+        List<CVPerson> people = App.CVPersonRepo.GetAllPeople();
         peopleList.ItemsSource = people;
     }
 
