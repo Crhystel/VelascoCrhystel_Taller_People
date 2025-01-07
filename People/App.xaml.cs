@@ -2,11 +2,12 @@
 
 public partial class App : Application
 {
-	public static PersonRepository PersonRepo { get; private set; }
+	public static PersonRepository CVPersonRepo { get; private set; }
 
-	public App()
+	public App(PersonRepository velascoRepo)
 	{
 		InitializeComponent();
+		CVPersonRepo = velascoRepo;
 		// TODO: Initialize the PersonRepository property with the PersonRespository singleton object
 
 	}
