@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using People.Interfaces;
 
 namespace People;
 
@@ -16,9 +17,10 @@ public static class MauiProgram
 			});
 		string dbPath = FileAccessHelper.GetLocalFilePath("VelascoCrhystelpeople.db3");
 		builder.Services.AddSingleton<PersonRepository>(c => ActivatorUtilities.CreateInstance<PersonRepository>(c, dbPath));
+        builder.Services.AddSingleton<ICVPersonRepository, PersonRepository>();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		// TODO: Add statements for adding PersonRepository as a singleton

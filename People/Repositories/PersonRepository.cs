@@ -2,6 +2,7 @@
 using People.Interfaces;
 using People.Models;
 using SQLite;
+using System;
 
 namespace People;
 
@@ -25,33 +26,33 @@ public class PersonRepository:ICVPersonRepository
         _dbPath = dbPath;                        
     }
 
-    public async Task AddNewPerson(string name)
+    public async Task<bool> AgregarPersonAsync(CVPerson cvPerson)
     {            
         int result = 0;
         try
         {
             await Init();
-
-            if (string.IsNullOrEmpty(name))
+            if (cvPerson == null || string.IsNullOrWhiteSpace(cvPerson.Name))
                 throw new Exception("Valid name required");
 
-            result = await velascoConn.InsertAsync(new CVPerson { Name=name});
+            await velascoConn.InsertAsync(cvPerson);
+            return true;
 
-            StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
         }
         catch (Exception ex)
         {
-            StatusMessage = string.Format("Failed to add {0}. Error: {1}", name, ex.Message);
+            StatusMessage = string.Format("Failed to add {0}. Error: {1}", ex.Message);
+            return false;   
         }
 
     }
 
-    public async Task<List<CVPerson>> GetAllPeople()
+    public async Task<List<CVPerson>> GetAllPersonAsync()
     {
         try
         {
             await Init ();
-            return await velascoConn.Table<CVPerson>().ToList();
+            return await velascoConn.Table<CVPerson>().ToListAsync();
         }
         catch (Exception ex)
         {
