@@ -14,13 +14,13 @@ namespace People.ViewModels
     internal class CVelascoMPViewModel : INotifyPropertyChanged
     {
         private string _cvAlerta;
-        private CVPerson _cvPerson;
+        private string _cvPerson;
         private List<CVPerson> _cvPersons;
         private readonly PersonRepository _personRepository;
         public ICommand ComandoAgregar { get; }
         public ICommand ComandoMostrar { get; }
         
-        public CVPerson cvPerson
+        public string cvPerson
         {
             get => _cvPerson;
             set
@@ -60,10 +60,16 @@ namespace People.ViewModels
         public CVelascoMPViewModel(PersonRepository personRepository)
         {
             _personRepository = personRepository;
-            cvPerson = new CVPerson();
-            
         }
 
+        public async Task AgregarPersona()
+        {
+            var creado = await _personRepository.AddNewPerson(cvPerson);
+            if (creado)
+            {
+                cvPersons = await _personRepository.GetAllPeople();
+            }
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>

@@ -1,16 +1,16 @@
 ﻿using Microsoft.UI.Xaml.Hosting;
+using People.Interfaces;
 using People.Models;
 using SQLite;
 
 namespace People;
 
-public class PersonRepository
+public class PersonRepository:ICVPersonRepository
 {
     string _dbPath;
 
     public string StatusMessage { get; set; }
 
-    // TODO: Add variable for the SQLite connection
     private SQLiteAsyncConnection velascoConn;
     private async Task Init()
     {
@@ -32,11 +32,9 @@ public class PersonRepository
         {
             await Init();
 
-            // basic validation to ensure a name was entered
             if (string.IsNullOrEmpty(name))
                 throw new Exception("Valid name required");
 
-            // TODO: Insert the new person into the database
             result = await velascoConn.InsertAsync(new CVPerson { Name=name});
 
             StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
@@ -50,11 +48,10 @@ public class PersonRepository
 
     public async Task<List<CVPerson>> GetAllPeople()
     {
-        // TODO: Init then retrieve a list of Person objects from the database into a list
         try
         {
             await Init ();
-            return await velascoConn.Table<CVPerson>().ToListAsync();
+            return await velascoConn.Table<CVPerson>().ToList();
         }
         catch (Exception ex)
         {
