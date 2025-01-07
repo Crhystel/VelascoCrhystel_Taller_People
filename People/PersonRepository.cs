@@ -1,4 +1,5 @@
-﻿using People.Models;
+﻿using Microsoft.UI.Xaml.Hosting;
+using People.Models;
 using SQLite;
 
 namespace People;
@@ -10,13 +11,13 @@ public class PersonRepository
     public string StatusMessage { get; set; }
 
     // TODO: Add variable for the SQLite connection
-    private SQLiteConnection velascoConn;
-    private void Init()
+    private SQLiteAsyncConnection velascoConn;
+    private async Task Init()
     {
         if (velascoConn != null)
             return;
-        velascoConn=new SQLiteConnection(_dbPath);
-        velascoConn.CreateTable<CVPerson>();
+        velascoConn=new SQLiteAsyncConnection(_dbPath);
+        await velascoConn.CreateTableAsync<CVPerson>();
     }
 
     public PersonRepository(string dbPath)
@@ -24,19 +25,19 @@ public class PersonRepository
         _dbPath = dbPath;                        
     }
 
-    public void AddNewPerson(string name)
+    public async Task AddNewPerson(string name)
     {            
         int result = 0;
         try
         {
-            Init();
+            await Init();
 
             // basic validation to ensure a name was entered
             if (string.IsNullOrEmpty(name))
                 throw new Exception("Valid name required");
 
             // TODO: Insert the new person into the database
-            result = velascoConn.Insert(new CVPerson { Name=name});
+            result = await velascoConn.InsertAsync(new CVPerson { Name=name});
 
             StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, name);
         }
@@ -47,13 +48,13 @@ public class PersonRepository
 
     }
 
-    public List<CVPerson> GetAllPeople()
+    public async Task<List<CVPerson>> GetAllPeople()
     {
         // TODO: Init then retrieve a list of Person objects from the database into a list
         try
         {
-            Init ();
-            return velascoConn.Table<CVPerson>().ToList();
+            await Init ();
+            return await velascoConn.Table<CVPerson>().ToListAsync();
         }
         catch (Exception ex)
         {

@@ -11,19 +11,19 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-    public void OnNewButtonClicked(object sender, EventArgs args)
+    public async void OnNewButtonClicked(object sender, EventArgs args)
     {
         statusMessage.Text = "";
 
-        App.CVPersonRepo.AddNewPerson(newPerson.Text);
+        await App.CVPersonRepo.AddNewPerson(newPerson.Text);
         statusMessage.Text = App.CVPersonRepo.StatusMessage;
     }
 
-    public void OnGetButtonClicked(object sender, EventArgs args)
+    public async void OnGetButtonClicked(object sender, EventArgs args)
     {
         statusMessage.Text = "";
 
-        List<CVPerson> people = App.CVPersonRepo.GetAllPeople();
+        List<CVPerson> people = await App.CVPersonRepo.GetAllPeople();
         peopleList.ItemsSource = people;
     }
 
