@@ -14,6 +14,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+		string dbPath = FileAccessHelper.GetLocalFilePath("people.db3");
+		builder.Services.AddSingleton<PersonRepository>(c => ActivatorUtilities.CreateInstance<PersonRepository>(c, dbPath));
 
 #if DEBUG
 		builder.Logging.AddDebug();
