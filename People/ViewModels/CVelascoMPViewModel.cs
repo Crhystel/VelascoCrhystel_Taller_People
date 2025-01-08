@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace People.ViewModels
 {
-    internal class CVelascoMPViewModel : INotifyPropertyChanged
+    public class CVelascoMPViewModel : INotifyPropertyChanged
     {
         private string _cvAlerta;
         private CVPerson _cvPerson;
@@ -58,9 +58,20 @@ namespace People.ViewModels
                 }
             }
         }
+        public CVelascoMPViewModel()
+        {
+            _cvPersonRepository = new PersonRepository("VelascoCrhystelpeople.db3"); 
+            cvPerson = new CVPerson();
+            ComandoAgregar = new Command(async () => await AgregarPersona());
+            ComandoMostrar = new Command(async () => await MostrarPerson());
+        }
         public CVelascoMPViewModel(PersonRepository personRepository)
         {
-            
+            _cvPersonRepository = personRepository;
+            cvPerson = new CVPerson();
+            ComandoAgregar = new Command(async () => await AgregarPersona());
+            ComandoMostrar = new Command(async () => await MostrarPerson());
+
         }
 
         public async Task AgregarPersona()

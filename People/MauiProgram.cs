@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using People.Interfaces;
+using People.ViewModels;
 
 namespace People;
 
@@ -18,6 +19,7 @@ public static class MauiProgram
 		string dbPath = FileAccessHelper.GetLocalFilePath("VelascoCrhystelpeople.db3");
 		builder.Services.AddSingleton<PersonRepository>(c => ActivatorUtilities.CreateInstance<PersonRepository>(c, dbPath));
         builder.Services.AddSingleton<ICVPersonRepository, PersonRepository>();
+        builder.Services.AddSingleton<CVelascoMPViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();
