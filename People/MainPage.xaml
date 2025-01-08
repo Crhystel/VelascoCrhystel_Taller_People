@@ -28,16 +28,18 @@
             Grid.Row="3"
             Command="{Binding ComandoMostrar}" />
 
-        <CollectionView ItemsSource="{Binding cvPersons}" x:Name="crhyselListadoPerson" Grid.Row="4">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:CVPerson">
-                    <Grid ColumnDefinitions="*,2*">
-                        <Label Text="{Binding Id}" TextColor="{StaticResource Primary}"/>
-                        <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource Primary}"/>
-                    </Grid>
+        <ListView ItemsSource="{Binding cvPersons}" x:Name="crhyselListadoPerson" Grid.Row="4" ItemSelected="OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnDefinitions="Auto,Auto">
+                            <Label Text="{Binding Id}" TextColor="{StaticResource Primary}" Margin="10,0,10,0"/>
+                            <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource Primary}"/>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
+        </ListView>
 
     </Grid>
 

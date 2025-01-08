@@ -61,4 +61,22 @@ public class PersonRepository:ICVPersonRepository
 
         return new List<CVPerson>();
     }
+    public async Task<bool> EliminarPersonAsync(int id)
+    {
+        try
+        {
+            await Init();
+            var person = await velascoConn.FindAsync<CVPerson>(id);
+            if (person == null)
+                throw new Exception("Person not found");
+
+            await velascoConn.DeleteAsync(person);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = string.Format("Failed to delete person. Error: {0}", ex.Message);
+            return false;
+        }
+    }
 }

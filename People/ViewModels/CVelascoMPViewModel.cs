@@ -20,7 +20,8 @@ namespace People.ViewModels
         private readonly ICVPersonRepository _cvPersonRepository;
         public ICommand ComandoAgregar { get; }
         public ICommand ComandoMostrar { get; }
-        
+        public ICommand ComandoEliminar { get; }
+
         public CVPerson cvPerson
         {
             get => _cvPerson;
@@ -60,10 +61,11 @@ namespace People.ViewModels
         }
         public CVelascoMPViewModel()
         {
-            _cvPersonRepository = new PersonRepository("VelascoCrhystelpeople.db3"); 
+            _cvPersonRepository = new PersonRepository("VelascoCrhystelpeople.db3");
             cvPerson = new CVPerson();
             ComandoAgregar = new Command(async () => await AgregarPersona());
             ComandoMostrar = new Command(async () => await MostrarPerson());
+            ComandoEliminar = new Command<CVPerson>(async (person) => await EliminarPersona(person));
         }
         public CVelascoMPViewModel(PersonRepository personRepository)
         {
@@ -71,19 +73,22 @@ namespace People.ViewModels
             cvPerson = new CVPerson();
             ComandoAgregar = new Command(async () => await AgregarPersona());
             ComandoMostrar = new Command(async () => await MostrarPerson());
-
+            ComandoEliminar = new Command<CVPerson>(async (person) => await EliminarPersona(person));
         }
 
         public async Task AgregarPersona()
         {
-            if (await _cvPersonRepository.AgregarPersonAsync(cvPerson))
-            {
-                await MostrarPerson(); 
-            }
+            await _cvPersonRepository.AgregarPersonAsync(cvPerson);
         }
         private async Task MostrarPerson()
         {
-            cvPersons=await _cvPersonRepository.GetAllPersonAsync();
+            cvPersons = await _cvPersonRepository.GetAllPersonAsync();
+        }
+        private async Task EliminarPersona(CVPerson person)
+        {
+            await _cvPersonRepository.EliminarPersonAsync(person);
+            Alerta = $"Crhystel Velasco acaba de eliminr un registro este: {person.Name} ";
+            await MostrarPerson();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

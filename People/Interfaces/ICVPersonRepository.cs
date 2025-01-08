@@ -11,5 +11,6 @@ namespace People.Interfaces
     {
         Task<bool> AgregarPersonAsync(CVPerson person);
         Task<List<CVPerson>> GetAllPersonAsync();
+        Task<bool> EliminarPersonAsync(int id);
     }
 }

@@ -20,6 +20,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<PersonRepository>(c => ActivatorUtilities.CreateInstance<PersonRepository>(c, dbPath));
         builder.Services.AddSingleton<ICVPersonRepository, PersonRepository>();
         builder.Services.AddSingleton<CVelascoMPViewModel>();
+        builder.Services.AddSingleton<MainPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();
