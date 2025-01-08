@@ -4,21 +4,27 @@
              xmlns:viewmodels="clr-namespace:People.ViewModels"
              xmlns:models="clr-namespace:People.Models"
              x:Class="People.MainPage" 
-             BackgroundColor="{DynamicResource Light}">
+             BackgroundColor="Lavender">
     <ContentPage.BindingContext>
         <viewmodels:CVelascoMPViewModel/>
     </ContentPage.BindingContext>
 
-    <Grid Padding="5" RowSpacing="5" ColumnSpacing="5"
+    <Grid Padding="5" RowSpacing="10" ColumnSpacing="5"
           RowDefinitions="Auto,Auto,Auto,Auto,Auto,*">
 
         <Entry x:Name="crhystelPerson"
                Text="{Binding cvPerson.Name}"
-           Placeholder="Enter name" />
+               Placeholder="Enter name"
+               WidthRequest="300"
+               HeightRequest="40" />
 
         <Button Text="Agregar Person"
             Grid.Row="1"
-            Command="{Binding ComandoAgregar}" />
+            Command="{Binding ComandoAgregar}"
+            WidthRequest="300"
+            HeightRequest="40"
+            BackgroundColor="Black"
+            TextColor="White"/>
 
         <Label x:Name="statusMessage"
            TextColor="Black"
@@ -27,7 +33,11 @@
 
         <Button Text="Mostrar toda la gente"
             Grid.Row="3"
-            Command="{Binding ComandoMostrar}" />
+            Command="{Binding ComandoMostrar}"
+            WidthRequest="300"
+            HeightRequest="40"
+            BackgroundColor="Black"
+            TextColor="White"/>
 
         <ListView ItemsSource="{Binding cvPersons}" x:Name="crhyselListadoPerson" Grid.Row="5" SelectedItem="{Binding PersonSeleccionada}" >
             <ListView.ItemTemplate>
@@ -43,7 +53,11 @@
         </ListView>
         <Button Text="Eliminar Seleccionado"
                 Grid.Row="4"
-                Clicked="OnEliminarButtonClicked" />
+                Clicked="OnEliminarButtonClicked"
+                WidthRequest="300"
+                HeightRequest="40"
+                BackgroundColor="Black"
+                TextColor="White"/>
 
     </Grid>
 

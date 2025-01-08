@@ -18,11 +18,11 @@ public partial class MainPage : ContentPage
     {
         var viewModel = (CVelascoMPViewModel)BindingContext;
 
-        if (viewModel.cvPerson != null)
+        if (viewModel.PersonSeleccionada != null)
         {
-            await viewModel.EliminarPersona(viewModel.cvPerson);
+            await viewModel.EliminarPersona(viewModel.PersonSeleccionada);
 
-            await DisplayAlert("Eliminado", $"Crhystel Velasco acaba de eliminar a {viewModel.cvPerson.Name} de la base de datos", "OK");
+            await DisplayAlert("Eliminado", $"Crhystel Velasco acaba de eliminar a {viewModel.PersonSeleccionada.Name} de la base de datos", "OK");
         }
         else
         {
