@@ -21,7 +21,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<ICVPersonRepository, PersonRepository>();
         builder.Services.AddSingleton<CVelascoMPViewModel>();
         builder.Services.AddSingleton<MainPage>();
-
+        builder.Services.AddSingleton<CVTarjetaPage>();
+        builder.Services.AddTransient<CVelascoTarjetaViewModel>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

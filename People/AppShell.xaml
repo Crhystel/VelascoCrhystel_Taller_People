@@ -4,11 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:People"
+    xmlns:views="clr-namespace:People"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="People"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="CV Tarjeta">
+            <ShellContent ContentTemplate="{DataTemplate views:CVTarjetaPage}" />
+        </Tab>
+        <Tab Title="Base de datos">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" />
+        </Tab>
+    </TabBar>
 
 </Shell>
