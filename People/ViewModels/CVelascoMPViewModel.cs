@@ -17,6 +17,7 @@ namespace People.ViewModels
         private string _cvAlerta;
         private CVPerson _cvPerson;
         private List<CVPerson> _cvPersons;
+        private CVPerson _personSeleccionada;
         private readonly ICVPersonRepository _cvPersonRepository;
         public ICommand ComandoAgregar { get; }
         public ICommand ComandoMostrar { get; }
@@ -30,6 +31,18 @@ namespace People.ViewModels
                 if (_cvPerson != value)
                 {
                     _cvPerson = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public CVPerson PersonSeleccionada
+        {
+            get => _personSeleccionada;
+            set
+            {
+                if (_personSeleccionada != value)
+                {
+                    _personSeleccionada = value;
                     OnPropertyChanged();
                 }
             }
@@ -86,12 +99,22 @@ namespace People.ViewModels
         }
         private async Task EliminarPersona(CVPerson person)
         {
-            await _cvPersonRepository.EliminarPersonAsync(person);
-            Alerta = $"Crhystel Velasco acaba de eliminr un registro este: {person.Name} ";
-            await MostrarPerson();
+            if (person != null)
+            {
+                bool eliminado = await _cvPersonRepository.EliminarPersonAsync(person.Id);
+                if (eliminado)
+                {
+                    Alerta = $"Crhystel Velasco acaba de eliminar a esta persona: {person.Name}";
+                    await MostrarPerson();  
+                }
+                else
+                {
+                    Alerta = "Error al eliminar la persona.";
+                }
+            }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

@@ -10,7 +10,7 @@
     </ContentPage.BindingContext>
 
     <Grid Padding="5" RowSpacing="5" ColumnSpacing="5"
-          RowDefinitions="Auto,Auto,Auto,Auto,*">
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto,*">
 
         <Entry x:Name="crhystelPerson"
                Text="{Binding cvPerson.Name}"
@@ -28,7 +28,12 @@
             Grid.Row="3"
             Command="{Binding ComandoMostrar}" />
 
-        <ListView ItemsSource="{Binding cvPersons}" x:Name="crhyselListadoPerson" Grid.Row="4" ItemSelected="OnItemSelected">
+        <Button Text="Eliminar Seleccionado"
+            Grid.Row="4"
+            Command="{Binding ComandoEliminar}" 
+                CommandParameter="{Binding PersonSeleccionada }"/>
+
+        <ListView ItemsSource="{Binding cvPersons}" x:Name="crhyselListadoPerson" Grid.Row="5" SelectedItem="{Binding PersonSeleccionada}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
