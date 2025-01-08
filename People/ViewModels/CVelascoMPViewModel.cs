@@ -60,7 +60,7 @@ namespace People.ViewModels
             }
         }
 
-        public string Alerta
+        public string cvAlerta
         {
             get => _cvAlerta;
             set
@@ -97,21 +97,10 @@ namespace People.ViewModels
         {
             cvPersons = await _cvPersonRepository.GetAllPersonAsync();
         }
-        private async Task EliminarPersona(CVPerson person)
+        public async Task EliminarPersona(CVPerson person)
         {
-            if (person != null)
-            {
-                bool eliminado = await _cvPersonRepository.EliminarPersonAsync(person.Id);
-                if (eliminado)
-                {
-                    Alerta = $"Crhystel Velasco acaba de eliminar a esta persona: {person.Name}";
-                    await MostrarPerson();  
-                }
-                else
-                {
-                    Alerta = "Error al eliminar la persona.";
-                }
-            }
+            await _cvPersonRepository.EliminarPersonAsync(person.Id);
+            await MostrarPerson();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

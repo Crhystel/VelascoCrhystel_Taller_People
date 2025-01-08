@@ -21,17 +21,13 @@
             Command="{Binding ComandoAgregar}" />
 
         <Label x:Name="statusMessage"
-           TextColor="{StaticResource Primary}"
+           TextColor="Black"
+               Text="{Binding Alerta}"
            Grid.Row="2" />
 
         <Button Text="Mostrar toda la gente"
             Grid.Row="3"
             Command="{Binding ComandoMostrar}" />
-
-        <Button Text="Eliminar Seleccionado"
-            Grid.Row="4"
-            Command="{Binding ComandoEliminar}" 
-                CommandParameter="{Binding PersonSeleccionada }"/>
 
         <ListView ItemsSource="{Binding cvPersons}" x:Name="crhyselListadoPerson" Grid.Row="5" SelectedItem="{Binding PersonSeleccionada}" >
             <ListView.ItemTemplate>
@@ -45,6 +41,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Text="Eliminar Seleccionado"
+                Grid.Row="4"
+                Clicked="OnEliminarButtonClicked" />
 
     </Grid>
 
